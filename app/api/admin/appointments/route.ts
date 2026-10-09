@@ -3,7 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 
 export async function GET(request: Request) {
   const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const serviceKey = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
   const authHeader = request.headers.get("authorization");
   const token = authHeader?.startsWith("Bearer ") ? authHeader.slice(7) : "";
   if (!url || !serviceKey || !token) return NextResponse.json({ error: "Not authenticated or server is not configured." }, { status: 401 });
